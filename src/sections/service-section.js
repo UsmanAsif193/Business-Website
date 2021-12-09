@@ -13,31 +13,78 @@ import Smart from 'assets/services/smart.svg';
 import Secure from 'assets/services/secure.svg';
 
 const data = {
-  subTitle: 'our services',
-  title: 'Business Goals Achieved with Design',
-  features: [
+  subTitle: "our services",
+  title: "Business Goals Achieved with Design",
+  services: [
     {
       id: 1,
       imgSrc: Smart,
-      altText: 'Smart Features',
-      title: 'Smart Features',
+      altText: "Smart Features",
+      title: "Smart Features",
       text:
-        'Get your blood tests delivered at let home collect sample from the victory of the managements. your blood tests.',
+        "Get your blood tests delivered at let home collect sample from the victory of the managements. your blood tests.",
     },
     {
       id: 2,
       imgSrc: Secure,
-      altText: 'Secure Contents',
-      title: 'Secure Contents',
+      altText: "Secure Contents",
+      title: "Secure Contents",
       text:
-        'Get your blood tests delivered at let home collect sample from the victory of the managements. your blood tests.',
+        "Get your blood tests delivered at let home collect sample from the victory of the managements. your blood tests.",
     },
   ],
 };
 
 export default function ServiceSection() {
+  const [videoOpen, setVideoOpen] = useState(false);
+  const handleClick = (e) => {
+    e.preventDefault();
+    setVideoOpen(true);
+  };
   return (
-    <h1>Service Section</h1>
+    <section sx={{ variant: "section.services" }}>
+      <Container sx={styles.containerBox}>
+        <Box sx={styles.thumbnail}>
+          <Image src={ServiceThumb} alt="Service Thumbnail" />
+          <Button
+            sx={styles.videoBtn}
+            onClick={handleClick}
+            aria-label="Play Button"
+          >
+            <span>
+              <IoIosPlay />
+            </span>
+          </Button>
+          <Box sx={styles.shapeBox}>
+            <Image src={shapePattern} alt="Shape Pattern" />
+          </Box>
+        </Box>
+        <Box sx={styles.contentBox}>
+          <TextFeature subTitle={data.subTitle} title={data.title} />
+          <Grid sx={styles.grid}>
+            {data.services.map((service) => (
+              <Box sx={styles.card} key={service.id}>
+                <Image
+                  src={service.imgSrc}
+                  alt={service.altText}
+                  sx={styles.icon}
+                />
+                <Box sx={styles.wrapper}>
+                  <Heading sx={styles.wrapper.title}>{service.title}</Heading>
+                  <Text sx={styles.wrapper.subTitle}>{service.text}</Text>
+                </Box>
+              </Box>
+            ))}
+          </Grid>
+        </Box>
+      </Container>
+      <ModalVideo
+        channel="youtube"
+        isOpen={videoOpen}
+        videoId="UjOCe8XpM3g"
+        onClose={() => setVideoOpen(false)}
+      />
+    </section>
   );
 }
 
